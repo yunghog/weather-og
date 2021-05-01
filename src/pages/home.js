@@ -65,7 +65,24 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <Container fluid className="weather-con">
+          <Row>
+            <Col md={8}>
+              <div className="weather-disp">
+                <div className="weather-disp-data-con">
+                  <div className="weather-disp-data">
+                    <h1>Hello</h1>
+                  </div>
+                </div>
+                <div className="weather-disp-image">
 
+                </div>
+              </div>
+            </Col>
+            <Col md={4}>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

@@ -1,0 +1,14 @@
+@font-face {
+  src: url('../assets/fonts/poppins.ttf');
+  font-family: 'poppins';
+}
+body{
+  font-family: 'poppins';
+}
+.weather-con{
+  height: 100vh;
+}
+.weather-disp-data{
+  position: absolute;
+  top: 20%;
+}
