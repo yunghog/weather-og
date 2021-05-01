@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloud, faSun, faTemperatureHigh, faSearch, faCloudRain, faSmog, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
+import Loading1 from '../components/loading';
+
 import Haze from '../assets/images/weather/haze.jpg'
 import Clear from '../assets/images/weather/clear.jpg'
 import Clouds from '../assets/images/weather/clouds.jpg'
@@ -20,6 +22,7 @@ class Home extends Component {
   constructor(props){
     super(props);
     this.state={
+      isLoading: true,
       data: '',
       weatherMain: '',
       zip: '',
@@ -36,6 +39,7 @@ class Home extends Component {
     this.getWeather = this.getWeather.bind(this);
     this.getWeather2 = this.getWeather2.bind(this);
     this.setData = this.setData.bind(this);
+    this.load1 = this.load1.bind(this);
   }
   componentDidMount(){
     AOS.init({
@@ -70,8 +74,13 @@ class Home extends Component {
         });
       }
     );
+    setTimeout(this.load1, 5000);
   }
-
+  load1(){
+      this.setState({
+        isLoading: false
+      });
+  }
   setData(evt){
     this.setState({ [evt.target.name]: evt.target.value });
   }
@@ -124,191 +133,197 @@ class Home extends Component {
        })
      }).catch(error => {
       console.log(error);
-      window.location.href="/#/error";
+      window.location.href+="error";
     });
     }
   render() {
     return (
       <div>
-        <Container fluid className="weather-con">
-          <Row noGutters>
-            <Col md={8}>
-              <div className="weather-disp">
-                <div className="title">
-                <Row noGutters>
-                  <Col xs={10}>
-                      <h1>Weatherog</h1>
-                  </Col>
-                  <Col xs={2}>
-                      <a href="">
-                        <h1>
-                          <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
-                        </h1>
-                      </a>
+        {!this.state.isLoading &&
+          <Container fluid className="weather-con">
+            <Row noGutters>
+              <Col md={8}>
+                <div className="weather-disp">
+                  <div className="title">
+                  <Row noGutters>
+                    <Col xs={10}>
+                        <h1>Weatherog</h1>
+                    </Col>
+                    <Col xs={2}>
+                        <a href="https://github.com/yunghog/weather-og" target="_blank" rel="noreferrer">
+                          <h1>
+                            <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
+                          </h1>
+                        </a>
+                    </Col>
+                  </Row>
+                </div>
+                <br></br>
+                <Row data-aos="fade-up" noGutters>
+                  <Col md={{ span: 8, offset: 2 }} >
+                    <div className="data-form">
+                      <div className="form-ctrl">
+                        <input onChange={this.setData} placeholder="<zip,cc> or <lat,lon> or  <cityname>" name="inputVal"/>
+                        <button className="btn btn-search" onClick={this.getWeather2}>
+                          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                        </button>
+                      </div>
+                    </div>
                   </Col>
                 </Row>
-              </div>
-              <br></br>
-              <Row data-aos="fade-up" noGutters>
-                <Col md={{ span: 8, offset: 2 }} >
-                  <div className="data-form">
-                    <div className="form-ctrl">
-                      <input onChange={this.setData} placeholder="<zip,cc> or <lat,lon> or  <cityname>" name="inputVal"/>
-                      <button className="btn btn-search" onClick={this.getWeather2}>
-                        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-                      </button>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-                <div className="weather-disp-data-con">
-                  <div className="weather-disp-data">
-                    <Row noGutters>
-                      <Col md={5}>
-                        <div className="temp-con" data-aos="fade-right">
-                          <div className="temp">
-                            <h2>{this.state.data.name}</h2>
-                              <div className="temp-sub">
-                                <span>
-                                  Lat
-                                  <p>
-                                    {this.state.myLat}
-                                  </p>
-                                </span>
-                              </div>
-                              <div className="temp-sub">
-                                <span>
-                                  Lon
-                                  <p>
-                                    {this.state.myLon}
-                                  </p>
-                                </span>
-                              </div>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col md={3}>
-                        <div className="temp-con"  data-aos="fade-right" data-aos-delay="1000">
-                          <div className="temp">
-                            <h2>
-                              {this.state.temp.temp}<FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
-                            </h2>
-                            <div className="temp-sub">
-                              <span>
-                                MIN
-                                <p>
-                                  {this.state.temp.temp_min}&#176;F
-                                </p>
-                              </span>
-                              <span>
-                                MAX
-                                <p>
-                                  {this.state.temp.temp_max}&#176;F
-                                </p>
-                              </span>
+                  <div className="weather-disp-data-con">
+                    <div className="weather-disp-data">
+                      <Row noGutters>
+                        <Col md={5}>
+                          <div className="temp-con" data-aos="fade-right">
+                            <div className="temp">
+                              <h2>{this.state.data.name}</h2>
+                                <div className="temp-sub">
+                                  <span>
+                                    Lat
+                                    <p>
+                                      {this.state.myLat}
+                                    </p>
+                                  </span>
+                                </div>
+                                <div className="temp-sub">
+                                  <span>
+                                    Lon
+                                    <p>
+                                      {this.state.myLon}
+                                    </p>
+                                  </span>
+                                </div>
                             </div>
                           </div>
-                        </div>
-                      </Col>
-                      <Col md={4}>
-                        <div className="temp-con"   data-aos="fade-right" data-aos-delay="2000">
-                          <div className="temp">
-                            <h2>
-                                {this.state.weatherMain.main=="Clouds" && <FontAwesomeIcon icon={faCloud}></FontAwesomeIcon>}
-                                {this.state.weatherMain.main=="Clear" && <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>}
-                                {this.state.weatherMain.main=="Rain" && <FontAwesomeIcon icon={faCloudRain}></FontAwesomeIcon>}
-                                {this.state.weatherMain.main=="Dust" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
-                                {this.state.weatherMain.main=="Haze" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
-                                {this.state.weatherMain.main=="Mist" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
-                                &nbsp;{this.state.weatherMain.main}
-                            </h2>
+                        </Col>
+                        <Col md={3}>
+                          <div className="temp-con"  data-aos="fade-right" data-aos-delay="1000">
+                            <div className="temp">
+                              <h2>
+                                {this.state.temp.temp}<FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
+                              </h2>
                               <div className="temp-sub">
                                 <span>
-                                  Description
+                                  MIN
                                   <p>
-                                    {this.state.weatherMain.description}
+                                    {this.state.temp.temp_min}&#176;F
+                                  </p>
+                                </span>
+                                <span>
+                                  MAX
+                                  <p>
+                                    {this.state.temp.temp_max}&#176;F
                                   </p>
                                 </span>
                               </div>
+                            </div>
                           </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-                <div className="weather-disp-image">
-                  {this.state.weatherMain.main=="Clouds" && <img src={Clouds}></img>}
-                  {this.state.weatherMain.main=="Clear" && <img src={Clear}></img>}
-                  {this.state.weatherMain.main=="Haze" && <img src={Haze}></img>}
-                  {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
-                  {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
-                  {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
-                </div>
-              </div>
-            </Col>
-            <Col md={4} data-aos="fade">
-              <div className="data-con">
-                <div className="data">
-                  <div className="data-form">
-                    <h2>Get Weather : </h2>
-                    <div className="form-ctrl">
-                      <input onChange={this.setData} placeholder="Search" name="inputVal"/>
-                      <button className="btn btn-search" onClick={this.getWeather2}>
-                        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-                      </button>
+                        </Col>
+                        <Col md={4}>
+                          <div className="temp-con"   data-aos="fade-right" data-aos-delay="2000">
+                            <div className="temp">
+                              <h2>
+                                  {this.state.weatherMain.main=="Clouds" && <FontAwesomeIcon icon={faCloud}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Clear" && <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Rain" && <FontAwesomeIcon icon={faCloudRain}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Dust" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Haze" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Mist" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                  &nbsp;{this.state.weatherMain.main}
+                              </h2>
+                                <div className="temp-sub">
+                                  <span>
+                                    Description
+                                    <p>
+                                      {this.state.weatherMain.description}
+                                    </p>
+                                  </span>
+                                </div>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
                     </div>
                   </div>
-                  <br/>
-                  <div className="data-info">
-                    <span>
-                      <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
-                    </span>
-                    <h3>Get weather by</h3>
-                    <ul>
-                      <li>Zip code and CC. eg: 577401,IN</li>
-                      <li>Geographical Coordinates. eg: 12.9794,77.5946</li>
-                      <li>City Name. eg: Atlanta</li>
-                    </ul>
-                  </div>
-                  <br/>
-                  <h2>Weather Details</h2>
-                  <div className="data-list">
-                    <ul>
-                      <li>
-                        <div className="data-atr">Humidity</div>
-                        <div className="data-val">{this.state.temp.humidity}%</div>
-                      </li>
-                      <li>
-                        <div className="data-atr">Pressure</div>
-                        <div className="data-val">{this.state.temp.pressure}</div>
-                      </li>
-                      <li>
-                        <div className="data-atr">Cloud Density</div>
-                        <div className="data-val">{this.state.clouds.all}%</div>
-                      </li>
-                      <li>
-                        <div className="data-atr">Wind Speed</div>
-                        <div className="data-val">{this.state.wind.speed} m/s</div>
-                      </li>
-                      <li>
-                        <div className="data-atr">Request status</div>
-                        <div className="data-val">{this.state.reqStatus}</div>
-                      </li>
-                    </ul>
+                  <div className="weather-disp-image">
+                    {this.state.weatherMain.main=="Clouds" && <img src={Clouds}></img>}
+                    {this.state.weatherMain.main=="Clear" && <img src={Clear}></img>}
+                    {this.state.weatherMain.main=="Haze" && <img src={Haze}></img>}
+                    {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
+                    {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
+                    {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
                   </div>
                 </div>
-                <div className="weather-disp-image blur">
-                  {this.state.weatherMain.main=="Clouds" && <img src={Clouds}></img>}
-                  {this.state.weatherMain.main=="Clear" && <img src={Clear}></img>}
-                  {this.state.weatherMain.main=="Haze" && <img src={Haze}></img>}
-                  {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
-                  {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
-                  {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
+              </Col>
+              <Col md={4} data-aos="fade">
+                <div className="data-con">
+                  <div className="data">
+                    <div className="data-form">
+                      <h2>Get Weather : </h2>
+                      <div className="form-ctrl">
+                        <input onChange={this.setData} placeholder="Search" name="inputVal"/>
+                        <button className="btn btn-search" onClick={this.getWeather2}>
+                          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                        </button>
+                      </div>
+                    </div>
+                    <br/>
+                    <div className="data-info">
+                      <span>
+                        <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
+                      </span>
+                      <h3>Get weather by</h3>
+                      <ul>
+                        <li>Zip code and CC. eg: 577401,IN</li>
+                        <li>Geographical Coordinates. eg: 12.9794,77.5946</li>
+                        <li>City Name. eg: Atlanta</li>
+                      </ul>
+                    </div>
+                    <br/>
+                    <h2>Weather Details</h2>
+                    <div className="data-list">
+                      <ul>
+                        <li>
+                          <div className="data-atr">Humidity</div>
+                          <div className="data-val">{this.state.temp.humidity}%</div>
+                        </li>
+                        <li>
+                          <div className="data-atr">Pressure</div>
+                          <div className="data-val">{this.state.temp.pressure}</div>
+                        </li>
+                        <li>
+                          <div className="data-atr">Cloud Density</div>
+                          <div className="data-val">{this.state.clouds.all}%</div>
+                        </li>
+                        <li>
+                          <div className="data-atr">Wind Speed</div>
+                          <div className="data-val">{this.state.wind.speed} m/s</div>
+                        </li>
+                        <li>
+                          <div className="data-atr">Request status</div>
+                          <div className="data-val">{this.state.reqStatus}</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="weather-disp-image blur">
+                    {this.state.weatherMain.main=="Clouds" && <img src={Clouds}></img>}
+                    {this.state.weatherMain.main=="Clear" && <img src={Clear}></img>}
+                    {this.state.weatherMain.main=="Haze" && <img src={Haze}></img>}
+                    {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
+                    {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
+                    {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
+                  </div>
                 </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+              </Col>
+            </Row>
+          </Container>
+        }
+        {
+          this.state.isLoading &&
+          <Loading1/>
+        }
       </div>
     );
   }

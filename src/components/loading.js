@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import '../style/style.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCog} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-class Error extends Component {
+class Loading1 extends Component {
   constructor(props){
     super(props);
     this.state={
     }
   }
   componentDidMount(){
-    setTimeout(function () {
-      window.location.href="/weather-og";
-    }, 3000);
+
   }
   render() {
     const errorDiv={
@@ -32,12 +31,12 @@ class Error extends Component {
     return (
       <div style={errorDiv}>
         <div style={errorText}>
-          <h1>Error 404. Invalid Location</h1>
-          <p>Redirecting to Homepage</p>
+          <h1>Loading <FontAwesomeIcon className="spin" icon={faCog}></FontAwesomeIcon></h1>
+          <p>Please turn on the device location</p>
         </div>
       </div>
     );
   }
 }
 
-export default Error;
+export default Loading1;
