@@ -5,10 +5,162 @@
 body{
   font-family: 'poppins';
 }
+
 .weather-con{
+  padding: 0px;
+}
+.weather-disp{
   height: 100vh;
+  width: 100%;
+  background-color: #0008;
+  position: relative;
+}
+.title{
+  margin: 0px 20px;
+  padding-top: 20px;
+}
+.title h1{
+  color: #fffd;
+}
+.title a{
+  color: #fffd;
+}
+.title a:hover{
+  color: #fff;
+}
+.data-con{
+  height: 100vh;
+  background-color: #0008;
+  color: #fffe;
+  overflow: hidden;
+}
+.data{
+  margin: 20px;
+  overflow: hidden;
 }
 .weather-disp-data{
   position: absolute;
-  top: 20%;
+  width: 100%;
+  top: 50%;
+}
+.temp-con{
+  margin: 5px;
+  padding: 5px;
+  background-color: #fff1;
+  border-radius: 10px;
+}
+.temp-con .temp h2{
+  color: #fffe;
+  font-weight: bolder;
+  font-size: 42px;
+}
+.temp-sub{
+  color: #fffe;
+  display: inline-flex;
+  margin: auto;
+}
+.temp-sub p{
+  font-size: 16px;
+  text-align: justify;
+}
+@media screen and (max-width: 769px) {
+  .weather-disp-data{
+    position: relative;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .temp-con .temp h2{
+    font-weight: bolder;
+    font-size: 32px;
+  }
+  .temp-sub p{
+    font-size: 12px;
+  }
+}
+.temp-sub  span{
+  margin-right: 15px;
+  font-size: 10px;
+  text-align: left;
+}
+.weather-disp-image{
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  width: 100%;
+  overflow: hidden;
+  height: 100vh;
+  background-color: #000;
+}
+.weather-disp-image img{
+  /* min-height: 100vh; */
+}
+.blur img{
+  filter: blur(10px);
+}
+.data-list  ul{
+  padding: 0px;
+  border-bottom: 1px solid #fff2;
+  border-top: 1px solid #fff2;
+}
+.data-list  ul li{
+  display: inline-flex;
+  width: 100%;
+  text-align: justify;
+  margin: 10px 0px;
+  font-size: 20px;
+}
+.data-list ul li .data-atr{
+  width: 70%;
+  color: #fff9;
+}
+.data-form{
+
+}
+.data-form  h2{
+  color: #fffd;
+}
+.form-ctrl{
+  width: 100%;
+  display: inline-flex;
+  font-size: 24px;
+  border: 2px solid #fff2;
+}
+.form-ctrl button{
+  color: #fffd;
+  width: 20%;
+  font-size: 36px;
+  outline: 0px !important;
+}
+.form-ctrl button:hover{
+  color: #fffd;
+  background-color: #fff5;
+}
+.form-ctrl input{
+  padding: 10px;
+  color: #fffe;
+  background-color: #fff1;
+  border: 0px;
+  width: 80%;
+  outline: 0px !important;
+}
+.data-info{
+  position: relative;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #fff5;
+}
+.data-info span{
+  position: absolute;
+  top: 15px;
+}
+.data-info h3{
+  padding-left: 20px;
+}
+.data-info ul{
+  list-style-type: none;
+  padding-left: 20px;
+}
+.data-info ul li{
+  margin: 10px 0px;
 }
