@@ -1,0 +1,42 @@
+{
+  "coord":{
+    "lon":75.1733,
+    "lat":14.0026
+    },
+  "weather":[{
+    "id":803,
+    "main":"Clouds",
+    "description":"broken clouds",
+    "icon":"04n"
+    }],
+  "base":"stations",
+  "main":{
+    "temp":298.34,
+    "feels_like":298.87,
+    "temp_min":298.34,
+    "temp_max":298.34,
+    "pressure":1010,
+    "humidity":75,
+    "sea_level":1010,
+    "grnd_level":945
+    },
+  "visibility":10000,
+  "wind":{
+    "speed":2.44,
+    "deg":266,
+    "gust":4.58
+    },
+  "clouds":{
+    "all":78
+    },
+  "dt":1619798229,
+  "sys":{
+    "country":"IN",
+    "sunrise":1619743068,
+    "sunset":1619788504
+  },
+  "timezone":19800,
+  "id":0,
+  "name":"Suntikoppa",
+  "cod":200
+}
