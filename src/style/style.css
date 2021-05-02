@@ -34,6 +34,11 @@ body{
   color: #fffe;
   overflow: hidden;
 }
+@media screen and (max-width:769px) {
+  .data-con{
+    height: inherit;
+  }
+}
 .data{
   margin: 20px;
   overflow: hidden;
@@ -89,7 +94,7 @@ body{
   top: 0px;
   width: 100%;
   overflow: hidden;
-  height: 100vh;
+  height: inherit;
   background-color: #000;
 }
 .weather-disp-image img{
@@ -124,7 +129,7 @@ body{
   width: 100%;
   display: inline-flex;
   font-size: 24px;
-  border: 2px solid #fff2;
+  border: 2px solid #fff3;
 }
 .form-ctrl button{
   color: #fffd;
@@ -139,11 +144,15 @@ body{
 .form-ctrl input{
   padding: 10px;
   color: #fffe;
-  background-color: #fff1;
+  background-color: #fff2;
   border: 0px;
   width: 80%;
   outline: 0px !important;
 }
+.form-ctrl input::placeholder{
+  color: #fff8;
+}
+
 .data-info{
   position: relative;
   padding: 10px;
@@ -176,5 +185,28 @@ body{
   }
   100%{
     transform: rotate(360deg);
+  }
+}
+.my-footer{
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+.my-footer a{
+  text-decoration: none;
+  color: #fffe;
+}
+.my-footer p{
+  color: #fff9;
+}
+@media screen and  (max-width: 768px) {
+  .data{
+    margin-bottom: 30%;
+  }
+  .my-footer{
+    position: relative;
+    background-color: #111;
   }
 }

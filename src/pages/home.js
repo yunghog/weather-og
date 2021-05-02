@@ -10,6 +10,7 @@ import { faCloud, faSun, faTemperatureHigh, faSearch, faCloudRain, faSmog, faInf
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import Loading1 from '../components/loading';
+import Footer from '../components/footer';
 
 import Haze from '../assets/images/weather/haze.jpg'
 import Clear from '../assets/images/weather/clear.jpg'
@@ -17,6 +18,7 @@ import Clouds from '../assets/images/weather/clouds.jpg'
 import Rain from '../assets/images/weather/rain.jpg'
 import Dust from '../assets/images/weather/dust.jpg'
 import Mist from '../assets/images/weather/misty.JPG'
+import Fog from '../assets/images/weather/fog.jpg'
 
 class Home extends Component {
   constructor(props){
@@ -201,7 +203,7 @@ class Home extends Component {
                           </div>
                         </Col>
                         <Col md={3}>
-                          <div className="temp-con"  data-aos="fade-right" data-aos-delay="1000">
+                          <div className="temp-con"  data-aos="fade-right" data-aos-delay="250">
                             <div className="temp">
                               <h2>
                                 <FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
@@ -225,7 +227,7 @@ class Home extends Component {
                           </div>
                         </Col>
                         <Col md={4}>
-                          <div className="temp-con"   data-aos="fade-right" data-aos-delay="2000">
+                          <div className="temp-con"   data-aos="fade-right" data-aos-delay="500">
                             <div className="temp">
                               <h2>
                                   {this.state.weatherMain.main=="Clouds" && <FontAwesomeIcon icon={faCloud}></FontAwesomeIcon>}
@@ -234,6 +236,7 @@ class Home extends Component {
                                   {this.state.weatherMain.main=="Dust" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
                                   {this.state.weatherMain.main=="Haze" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
                                   {this.state.weatherMain.main=="Mist" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                  {this.state.weatherMain.main=="Fog" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
                                   &nbsp;{this.state.weatherMain.main}
                               </h2>
                                 <div className="temp-sub">
@@ -257,15 +260,16 @@ class Home extends Component {
                     {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
                     {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
                     {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
+                    {this.state.weatherMain.main=="Fog" && <img src={Fog}></img>}
                   </div>
                 </div>
               </Col>
-              <Col md={4} data-aos="fade">
+              <Col md={4}>
                 <div className="data-con">
                   <div className="data">
                     <div className="data-form">
                       <h2>Get Weather : </h2>
-                      <div className="form-ctrl">
+                      <div className="form-ctrl" data-aos="fade-left">
                         <input onChange={this.setData} placeholder="Search" name="inputVal"/>
                         <button className="btn btn-search" onClick={this.getWeather2}>
                           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
@@ -273,7 +277,7 @@ class Home extends Component {
                       </div>
                     </div>
                     <br/>
-                    <div className="data-info">
+                    <div className="data-info" data-aos="fade-left" data-aos-delay="200">
                       <span>
                         <FontAwesomeIcon icon={faInfoCircle}></FontAwesomeIcon>
                       </span>
@@ -286,7 +290,7 @@ class Home extends Component {
                     </div>
                     <br/>
                     <h2>Weather Details</h2>
-                    <div className="data-list">
+                    <div className="data-list" data-aos="fade">
                       <ul>
                         <li>
                           <div className="data-atr">Humidity</div>
@@ -318,8 +322,10 @@ class Home extends Component {
                     {this.state.weatherMain.main=="Rain" && <img src={Rain}></img>}
                     {this.state.weatherMain.main=="Mist" && <img src={Mist}></img>}
                     {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
+                    {this.state.weatherMain.main=="Fog" && <img src={Fog}></img>}
                   </div>
                 </div>
+                <Footer/>
               </Col>
             </Row>
           </Container>
