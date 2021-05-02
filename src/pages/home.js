@@ -74,7 +74,7 @@ class Home extends Component {
         });
       }
     );
-    setTimeout(this.load1, 5000);
+    setTimeout(this.load1,3000);
   }
   load1(){
       this.setState({
@@ -129,12 +129,15 @@ class Home extends Component {
          sun: res.data.sys,
          wind: res.data.wind,
          clouds: res.data.clouds,
-         reqStatus: res.data.cod
+         reqStatus: res.data.cod,
+         isLoading: true
        })
+
      }).catch(error => {
       console.log(error);
       window.location.href+="error";
     });
+    setTimeout(this.load1,2000);
     }
   render() {
     return (
@@ -201,19 +204,20 @@ class Home extends Component {
                           <div className="temp-con"  data-aos="fade-right" data-aos-delay="1000">
                             <div className="temp">
                               <h2>
-                                {this.state.temp.temp}<FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
+                                <FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
+                                {(this.state.temp.temp-273.0).toFixed(2)}&#176; C
                               </h2>
                               <div className="temp-sub">
                                 <span>
                                   MIN
                                   <p>
-                                    {this.state.temp.temp_min}&#176;F
+                                    {(this.state.temp.temp_min-273.0).toFixed(2)}&#176;C
                                   </p>
                                 </span>
                                 <span>
                                   MAX
                                   <p>
-                                    {this.state.temp.temp_max}&#176;F
+                                    {(this.state.temp.temp_max-273).toFixed(2)}&#176;C
                                   </p>
                                 </span>
                               </div>
