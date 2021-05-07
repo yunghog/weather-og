@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/style.css';
 import 'aos/dist/aos.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCloud, faSun, faTemperatureHigh, faSearch, faCloudRain, faSmog, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCloud, faSun, faTemperatureHigh, faSearch, faCloudRain, faSmog, faInfoCircle, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import Loading1 from '../components/loading';
@@ -87,7 +87,7 @@ class Home extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
    getWeather(){
-     var req='http://api.openweathermap.org/data/2.5/weather?zip='+this.state.zip+','+this.state.country+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+     var req='http://api.openweathermap.org/data/2.5/forecast?zip='+this.state.zip+','+this.state.country+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
      req=req.replace(" ","");
      axios.get(req).then(res=>{
        this.setState({
@@ -145,12 +145,12 @@ class Home extends Component {
     return (
       <div>
         {!this.state.isLoading &&
-          <Container fluid className="weather-con">
+          <Container fluid={true}>
             <Row noGutters>
               <Col md={8}>
                 <div className="weather-disp">
                   <div className="title">
-                  <Row noGutters>
+                  <Row>
                     <Col xs={10}>
                         <h1>Weatherog</h1>
                     </Col>
@@ -164,7 +164,7 @@ class Home extends Component {
                   </Row>
                 </div>
                 <br></br>
-                <Row data-aos="fade-up" noGutters>
+                <Row data-aos="fade-up">
                   <Col md={{ span: 8, offset: 2 }} >
                     <div className="data-form">
                       <div className="form-ctrl">
@@ -178,11 +178,13 @@ class Home extends Component {
                 </Row>
                   <div className="weather-disp-data-con">
                     <div className="weather-disp-data">
-                      <Row noGutters>
-                        <Col md={5}>
+                      <Row>
+                        <Col md={{ span: 8, offset: 2 }}>
                           <div className="temp-con" data-aos="fade-right">
                             <div className="temp">
-                              <h2>{this.state.data.name}</h2>
+                              <h2>
+                                <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon> {this.state.data.name}
+                              </h2>
                                 <div className="temp-sub">
                                   <span>
                                     Lat
@@ -202,12 +204,13 @@ class Home extends Component {
                             </div>
                           </div>
                         </Col>
-                        <Col md={3}>
+                      </Row>
+                      <Row>
+                        <Col md={{ span: 4, offset: 2 }}>
                           <div className="temp-con"  data-aos="fade-right" data-aos-delay="250">
                             <div className="temp">
                               <h2>
-                                <FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>
-                                {(this.state.temp.temp-273.0).toFixed(2)}&#176; C
+                                <FontAwesomeIcon icon={faTemperatureHigh}></FontAwesomeIcon>  {(this.state.temp.temp-273.0).toFixed(2)}&#176; C
                               </h2>
                               <div className="temp-sub">
                                 <span>

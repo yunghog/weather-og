@@ -5,9 +5,10 @@
 body{
   font-family: 'poppins';
 }
-
-.weather-con{
+.container-fluid{
   padding: 0px;
+}
+.weather-con{
 }
 .weather-disp{
   height: 100vh;
@@ -44,15 +45,17 @@ body{
   overflow: hidden;
 }
 .weather-disp-data{
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
-  top: 50%;
+  /* top: 50%; */
 }
 .temp-con{
-  margin: 5px;
-  padding: 5px;
   background-color: #fff1;
   border-radius: 10px;
+  margin: 10px 0px;
+}
+.temp{
+  padding: 10px;
 }
 .temp-con .temp h2{
   color: #fffe;
@@ -62,11 +65,11 @@ body{
 .temp-sub{
   color: #fffe;
   display: inline-flex;
-  margin: auto;
+  margin-left: 2.5rem;
 }
 .temp-sub p{
-  font-size: 16px;
-  text-align: justify;
+  font-size: 18px;
+  margin: 0px;
 }
 @media screen and (max-width: 769px) {
   .weather-disp-data{
