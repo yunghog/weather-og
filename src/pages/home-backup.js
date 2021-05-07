@@ -36,13 +36,10 @@ class Home extends Component {
       wind: '',
       clouds: '',
       inputVal: '',
-      reqStatus: '',
-      forecast: '',
-      dates:[],
-      days:[]
+      reqStatus: ''
     }
     this.getWeather = this.getWeather.bind(this);
-    this.getForecast = this.getForecast.bind(this);
+    this.getWeather2 = this.getWeather2.bind(this);
     this.setData = this.setData.bind(this);
     this.load1 = this.load1.bind(this);
   }
@@ -80,8 +77,6 @@ class Home extends Component {
       }
     );
     setTimeout(this.load1,3000);
-    this.getForecast();
-    console.log(this.state.forecast);
   }
   load1(){
       this.setState({
@@ -106,34 +101,6 @@ class Home extends Component {
          clouds: res.data.clouds
        })
      });
-    }
-   getForecast(){
-     var dates = [];
-     var days = [];
-     var fcData=[]
-     var req='http://api.openweathermap.org/data/2.5/forecast?q=bangalore&appid=ee09cabd0c0770e88fd6cd931143eeca';
-     req=req.replace(' ','');
-     axios.get(req).then(res=>{
-       for(var i=0;i<res.data.list.length;i++){
-         if(dates.indexOf(res.data.list[i].dt_txt)<0){
-           dates.push(res.data.list[i].dt_txt);
-           let date1 = res.data.list[i].dt_txt.split(' ')[0].split('-');
-           console.log(date1);
-           var y=new Date(date1[0],date1[1],date1[2]);
-           console.log(y);
-           days.push(y.toDateString().split(' ')[0]);
-         }
-       }
-       this.setState({
-         days: days,
-         dates: dates
-       })
-       console.log(days);
-       this.setState({
-         forecast: res.data,
-       })
-     });
-     console.log(this.state.forecast);
     }
    getWeather2(){
      var  inputVal = this.state.inputVal;
@@ -287,13 +254,6 @@ class Home extends Component {
                           </div>
                         </Col>
                       </Row>
-                      <Row>
-                        <Col>
-                            this.state.forecast.list.map(f=>
-                                    <h3>{f}</h3>
-                            )
-                        </Col>
-                      </Row>
                     </div>
                   </div>
                   <div className="weather-disp-image">
@@ -367,8 +327,8 @@ class Home extends Component {
                     {this.state.weatherMain.main=="Dust" && <img src={Dust}></img>}
                     {this.state.weatherMain.main=="Fog" && <img src={Fog}></img>}
                   </div>
-                  <Footer/>
                 </div>
+                <Footer/>
               </Col>
             </Row>
           </Container>

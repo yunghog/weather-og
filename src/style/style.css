@@ -5,16 +5,18 @@
 body{
   font-family: 'poppins';
 }
-.container-fluid{
-  padding: 0px;
-}
 .weather-con{
+  min-height: 100vh;
+  overflow: hidden;
+}
+.container-fluid{
+    padding: 0px;
 }
 .weather-disp{
-  height: 100vh;
-  width: 100%;
+  min-height: 100vh;
   background-color: #0008;
   position: relative;
+  overflow: hidden;
 }
 .title{
   margin: 0px 20px;
@@ -30,14 +32,22 @@ body{
   color: #fff;
 }
 .data-con{
-  height: 100vh;
+  min-height: 100vh;
   background-color: #0008;
   color: #fffe;
   overflow: hidden;
+  position: fixed;
+}
+.data{
+  /* position: fixed; */
 }
 @media screen and (max-width:769px) {
   .data-con{
     height: inherit;
+    position: relative;
+  }
+  .weather-disp-con, .weather-disp, .data-con{
+    min-height: inherit;
   }
 }
 .data{
@@ -45,9 +55,7 @@ body{
   overflow: hidden;
 }
 .weather-disp-data{
-  /* position: absolute; */
   width: 100%;
-  /* top: 50%; */
 }
 .temp-con{
   background-color: #fff1;
@@ -102,9 +110,7 @@ body{
   height: inherit;
   background-color: #000;
 }
-.weather-disp-image img{
-  /* min-height: 100vh; */
-}
+
 .blur img{
   filter: blur(10px);
 }
