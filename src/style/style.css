@@ -78,8 +78,10 @@ body{
   }
 }
 @media screen and (max-width: 1024px) {
+  .temp-con{
+    margin: 10px;
+  }
   .temp-con .temp h2{
-    font-weight: bolder;
     font-size: 32px;
   }
   .temp-sub p{
