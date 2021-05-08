@@ -38,11 +38,13 @@ class Home extends Component {
       inputVal: '',
       reqStatus: '',
       forecast: '',
-      dates:[],
-      days:[]
+      dates: [],
+      days: []
     }
-    this.getWeather = this.getWeather.bind(this);
-    this.getForecast = this.getForecast.bind(this);
+    this.getWeather2 = this.getWeather2.bind(this);
+    this.getForecastcord = this.getForecastcord.bind(this);
+    this.getForecastcity = this.getForecastcity.bind(this);
+    this.getForecastPin = this.getForecastPin.bind(this);
     this.setData = this.setData.bind(this);
     this.load1 = this.load1.bind(this);
   }
@@ -77,11 +79,10 @@ class Home extends Component {
             reqStatus: res.status
           })
         });
+        this.getForecastcord(position.coords.latitude,position.coords.longitude);
       }
     );
     setTimeout(this.load1,3000);
-    this.getForecast();
-    console.log(this.state.forecast);
   }
   load1(){
       this.setState({
@@ -91,36 +92,18 @@ class Home extends Component {
   setData(evt){
     this.setState({ [evt.target.name]: evt.target.value });
   }
-   getWeather(){
-     var req='http://api.openweathermap.org/data/2.5/forecast?zip='+this.state.zip+','+this.state.country+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
-     req=req.replace(" ","");
-     axios.get(req).then(res=>{
-       this.setState({
-         data: res.data,
-         weatherMain: res.data.weather[0],
-         temp: res.data.main,
-         myLat: res.data.coord.lat,
-         myLon: res.data.coord.lon,
-         sun: res.data.sys,
-         wind: res.data.wind,
-         clouds: res.data.clouds
-       })
-     });
-    }
-   getForecast(){
+   getForecastcord(x,y){
      var dates = [];
      var days = [];
      var fcData=[]
-     var req='http://api.openweathermap.org/data/2.5/forecast?q=bangalore&appid=ee09cabd0c0770e88fd6cd931143eeca';
+     var req='http://api.openweathermap.org/data/2.5/forecast?lat='+x+'&lon='+y+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
      req=req.replace(' ','');
      axios.get(req).then(res=>{
        for(var i=0;i<res.data.list.length;i++){
-         if(dates.indexOf(res.data.list[i].dt_txt)<0){
-           dates.push(res.data.list[i].dt_txt);
+         if(dates.indexOf(res.data.list[i].dt_txt.split(' ')[0])<0){
+           dates.push(res.data.list[i].dt_txt.split(' ')[0]);
            let date1 = res.data.list[i].dt_txt.split(' ')[0].split('-');
-           console.log(date1);
-           var y=new Date(date1[0],date1[1],date1[2]);
-           console.log(y);
+           var y=new Date(date1[0],date1[1]-1,date1[2]);
            days.push(y.toDateString().split(' ')[0]);
          }
        }
@@ -128,30 +111,83 @@ class Home extends Component {
          days: days,
          dates: dates
        })
-       console.log(days);
        this.setState({
          forecast: res.data,
        })
      });
-     console.log(this.state.forecast);
+     console.log(req);
+    }
+   getForecastPin(x,y){
+     var dates = [];
+     var days = [];
+     var fcData=[]
+     var req='http://api.openweathermap.org/data/2.5/forecast?zip='+x+','+y+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+     req=req.replace(' ','');
+     axios.get(req).then(res=>{
+       for(var i=0;i<res.data.list.length;i++){
+         if(dates.indexOf(res.data.list[i].dt_txt.split(' ')[0])<0){
+           dates.push(res.data.list[i].dt_txt.split(' ')[0]);
+           let date1 = res.data.list[i].dt_txt.split(' ')[0].split('-');
+           var y=new Date(date1[0],date1[1]-1,date1[2]);
+           days.push(y.toDateString().split(' ')[0]);
+         }
+       }
+       this.setState({
+         days: days,
+         dates: dates
+       })
+       this.setState({
+         forecast: res.data,
+       })
+     });
+     console.log(req);
+    }
+   getForecastcity(x){
+     var dates = [];
+     var days = [];
+     var fcData=[]
+     var req='http://api.openweathermap.org/data/2.5/forecast?q='+x+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+     req=req.replace(' ','');
+     axios.get(req).then(res=>{
+       for(var i=0;i<res.data.list.length;i++){
+         if(dates.indexOf(res.data.list[i].dt_txt.split(' ')[0])<0){
+           dates.push(res.data.list[i].dt_txt.split(' ')[0]);
+           let date1 = res.data.list[i].dt_txt.split(' ')[0].split('-');
+           var y=new Date(date1[0],date1[1]-1,date1[2]);
+           days.push(y.toDateString().split(' ')[0]);
+         }
+       }
+       this.setState({
+         days: days,
+         dates: dates
+       })
+       this.setState({
+         forecast: res.data,
+       })
+     });
+     console.log(req);
     }
    getWeather2(){
      var  inputVal = this.state.inputVal;
      var req='';
      if(Number(inputVal)){
        req='http://api.openweathermap.org/data/2.5/weather?zip='+inputVal+',IN&appid=ee09cabd0c0770e88fd6cd931143eeca';
+       this.getForecastPin(inputVal,'IN');
      }
      else if(inputVal.indexOf(',')>-1){
        var ary = inputVal.split(',');
        if(Number(ary[0]) && Number(ary[1]) ){
          req='http://api.openweathermap.org/data/2.5/weather?lat='+ary[0]+'&lon='+ary[1]+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+         this.getForecastcord(ary[0],ary[1]);
        }
        else if(Number(ary[0]) && !Number(ary[1])){
          req='http://api.openweathermap.org/data/2.5/weather?zip='+ary[0]+','+ary[1]+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+         this.getForecastPin(ary[0],ary[1]);
        }
      }
      else{
        req='http://api.openweathermap.org/data/2.5/weather?q='+inputVal+'&appid=ee09cabd0c0770e88fd6cd931143eeca';
+       this.getForecastcity(inputVal);
      }
      req=req.replace(" ","");
      axios.get(req).then(res=>{
@@ -201,7 +237,7 @@ class Home extends Component {
                   <Col md={{ span: 8, offset: 2 }} >
                     <div className="data-form">
                       <div className="form-ctrl">
-                        <input onChange={this.setData} placeholder="<zip,cc> or <lat,lon> or  <cityname>" name="inputVal"/>
+                        <input onChange={this.setData} placeholder="Search <cityname> or <zip,cc> or <lat,lon>" name="inputVal"/>
                         <button className="btn btn-search" onClick={this.getWeather2}>
                           <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                         </button>
@@ -288,15 +324,61 @@ class Home extends Component {
                         </Col>
                       </Row>
                       <Row>
-                        <Col>
-                            this.state.forecast.list.map(f=>
-                                    <h3>{f}</h3>
-                            )
+                        <Col md={{span:4,offset:2}}>
+                          <div className="temp-con">
+                            <div className="temp">
+                              <h3>Humidity : {this.state.temp.humidity} %</h3>
+                            </div>
+                          </div>
+                        </Col>
+                        <Col md={4}>
+                          <div className="temp-con">
+                            <div className="temp">
+                              <h3>Pressure : {this.state.temp.pressure} mBar</h3>
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={{span:8, offset:2}}>
+                          <div className="forecast-con">
+                            {
+                              this.state.dates.map((i) => (
+                                <div className="forecast-data" data-aos="fade-up">
+                                    <h1>{this.state.days[this.state.dates.indexOf(i)]}</h1>
+                                    {this.state.forecast.list.map((j) => {
+                                      if(i==j.dt_txt.split(' ')[0]){
+                                        return(
+                                          <div>
+                                            <span className="time">
+                                              {j.dt_txt.split(' ')[1].split(':')[0]}:{j.dt_txt.split(' ')[1].split(':')[1]} Hours
+                                            </span>
+                                            <span className="weather1">
+                                              {j.weather[0].description}&nbsp;&nbsp;
+                                              {j.weather[0].main=="Clouds" && <FontAwesomeIcon icon={faCloud}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Clear" && <FontAwesomeIcon icon={faSun}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Haze" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Rain" && <FontAwesomeIcon icon={faCloudRain}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Fog" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Mist" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                              {j.weather[0].main=="Dust" && <FontAwesomeIcon icon={faSmog}></FontAwesomeIcon>}
+                                            </span>
+                                            <span className="temp1">
+                                              {(j.main.temp-273).toFixed(0)}&#176; C
+                                            </span>
+                                          </div>
+                                        )
+                                      }
+                                    })}
+                                </div>
+                              ))
+                            }
+                          </div>
                         </Col>
                       </Row>
                     </div>
                   </div>
-                  <div className="weather-disp-image">
+                  <div className="weather-disp-image weather-disp-image-fixed">
                     {this.state.weatherMain.main=="Clouds" && <img src={Clouds}></img>}
                     {this.state.weatherMain.main=="Clear" && <img src={Clear}></img>}
                     {this.state.weatherMain.main=="Haze" && <img src={Haze}></img>}
@@ -341,7 +423,7 @@ class Home extends Component {
                         </li>
                         <li>
                           <div className="data-atr">Pressure</div>
-                          <div className="data-val">{this.state.temp.pressure}</div>
+                          <div className="data-val">{this.state.temp.pressure} mBar</div>
                         </li>
                         <li>
                           <div className="data-atr">Cloud Density</div>
@@ -350,10 +432,6 @@ class Home extends Component {
                         <li>
                           <div className="data-atr">Wind Speed</div>
                           <div className="data-val">{this.state.wind.speed} m/s</div>
-                        </li>
-                        <li>
-                          <div className="data-atr">Request status</div>
-                          <div className="data-val">{this.state.reqStatus}</div>
                         </li>
                       </ul>
                     </div>

@@ -4,6 +4,7 @@
 }
 body{
   font-family: 'poppins';
+  background-color: #222;
 }
 .weather-con{
   min-height: 100vh;
@@ -70,6 +71,9 @@ body{
   font-weight: bolder;
   font-size: 42px;
 }
+.temp-con .temp h3{
+  color: #fffe;
+}
 .temp-sub{
   color: #fffe;
   display: inline-flex;
@@ -110,9 +114,12 @@ body{
   height: inherit;
   background-color: #000;
 }
-
+.weather-disp-image-fixed img{
+  position: fixed;
+}
 .blur img{
   filter: blur(10px);
+  opacity: .4;
 }
 .data-list  ul{
   padding: 0px;
@@ -221,3 +228,59 @@ body{
     background-color: #111;
   }
 }
+.forecast-con{
+  margin-top: 10px;
+  width: 100%;
+  color: #eeee;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+.forecast-data{
+  display: inline-block;
+  width: 250px;
+  padding: 5px;
+  margin: 5px;
+  background-color: #fff1;
+  border-radius: 10px;
+  color: #eeee;
+}
+.forecast-data div{
+  border-bottom: 1px solid #eee2;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  position: relative;
+}
+.forecast-data .time{
+  display: block;
+  font-size: 12px;
+}
+.forecast-data .temp1{
+  position: absolute;
+  right: 0px;
+}
+.forecast-data .weather1{
+  margin-right: 10px;
+}
+@media screen and (max-width:769px) {
+  .forecast-data{
+    width: 75%;
+  }
+}
+.forecast-con::-webkit-scrollbar{
+  height: 5px;
+}
+.forecast-con::-webkit-scrollbar-tracker{
+  background-color: #ccc2;
+}
+.forecast-con::-webkit-scrollbar-thumb{
+  background-color: #ccc2;
+}
+/* ::-webkit-scrollbar
+::-webkit-scrollbar-button
+::-webkit-scrollbar-track
+::-webkit-scrollbar-track-piece
+::-webkit-scrollbar-thumb
+::-webkit-scrollbar-corner
+::-webkit-resizer    */
