@@ -51,7 +51,8 @@ class Home extends Component {
   componentDidMount(){
     AOS.init({
       offset: 10,
-      duration: 2000
+      duration: 2000,
+      once: true
     });
      navigator.permissions.query({name:'geolocation'}).then(res=>{
        this.setState({
@@ -325,14 +326,14 @@ class Home extends Component {
                       </Row>
                       <Row>
                         <Col md={{span:4,offset:2}}>
-                          <div className="temp-con">
+                          <div className="temp-con" data-aos="fade-right"  data-aos-delay="750">
                             <div className="temp">
                               <h3>Humidity : {this.state.temp.humidity} %</h3>
                             </div>
                           </div>
                         </Col>
                         <Col md={4}>
-                          <div className="temp-con">
+                          <div className="temp-con" data-aos="fade-right" data-aos-delay="1000">
                             <div className="temp">
                               <h3>Pressure : {this.state.temp.pressure} mBar</h3>
                             </div>
